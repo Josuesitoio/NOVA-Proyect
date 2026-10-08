@@ -1,0 +1,7 @@
+1. Read `src/main/java/mx/edu/itson/proyectonova/models/entities/KeplerDataEntity.java` to verify that all references to `koi_score` were successfully removed. (I used `sed` earlier).
+2. Edit `src/main/java/mx/edu/itson/proyectonova/models/enums/ClasificacionEnum.java` to contain `POSITIVE`, `CANDIDATE`, and `FALSE_POSITIVE` values as requested in the "Target Variable" requirement.
+3. Edit `src/main/java/mx/edu/itson/proyectonova/services/impl/CsvProcesadorServiceImpl.java` to properly map "FALSE POSITIVE" to `FALSE_POSITIVE` by changing `ClasificacionEnum.valueOf(cols[1].toUpperCase())` to `ClasificacionEnum.valueOf(cols[1].toUpperCase().replace(" ", "_"))`.
+4. Address the UI issues: To fix the graphs failing to load, rename `src/main/resources/static/engine3d/core/CamaraManager.js` to `src/main/resources/static/engine3d/core/CameraManager.js`, and edit `src/main/resources/static/app.js` to correct the path of the imports `Motor3DManager.js` -> `./engine3d/Motor3DManager.js` and `ApiClient.js` -> `./api/ApiClient.js`. To fix the UI responsiveness, update `styles.css` `.ui-overlay` to have `overflow-y: auto; width: 100%;` and set media query for mobile screens with padding adjustments.
+5. Run tests with `./gradlew test` to ensure changes didn't break tests.
+6. Complete pre-commit steps to ensure proper testing, verification, review, and reflection are done.
+7. Submit the changes.

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nova :: Explorador Exoplanetario Kepler</title>
+
+    <!-- Evita errores 404 silenciosos en el backend por falta de icono -->
+    <link rel="icon" href="data:,">
+
+    <!-- Estilos Técnicos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Lienzo Gráfico Principal (Fondo 3D) -->
+<canvas id="novaCanvas"></canvas>
+
+<!-- Superposición de la Interfaz de Usuario -->
+<div class="ui-overlay">
+
+    <!-- Cabecera Superior -->
+    <header class="panel-fluido">
+        <h1>PROYECTO NOVA</h1>
+        <p>Visualización Avanzada de Telemetría NASA</p>
+    </header>
+
+    <!-- Sección Central Izquierda: Controles de Búsqueda y Pruebas -->
+    <section class="controls panel-fluido">
+        <h2>Explorador Local (Port 9090)</h2>
+
+        <!-- Búsqueda en Base de Datos -->
+        <div class="search-box">
+            <input type="text" id="kepidInput" placeholder="Ingrese KEPID (Ej. K00001.01)" spellcheck="false">
+            <button id="searchBtn">Explorar</button>
+        </div>
+
+        <!-- Demostración Rápida -->
+        <div class="quick-list">
+            <p>Muestras AAA de alto rendimiento:</p>
+            <button class="kep-link" data-kep="K00001.01">K00001.01</button>
+            <button class="kep-link" data-kep="K00010.01">K00010.01</button>
+            <button class="kep-link" data-kep="K00119.01">K00119.01</button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- MÓDULOS DE INTELIGENCIA ARTIFICIAL         -->
+        <!-- ========================================== -->
+        <div class="ia-testing-module" style="margin-top: 1rem; border-top: 1px solid var(--hud-border); padding-top: 1rem;">
+
+            <!-- 1. Carga por Lotes (CSV) -->
+            <p><strong>Carga de Dataset (CSV)</strong></p>
+            <input type="file" id="csvFileInput" accept=".csv" style="color: var(--text-main); font-size: 0.8rem; margin-bottom: 0.5rem; width: 100%;"/>
+            <button id="uploadCsvBtn" class="kep-link" style="width: 100%; margin-bottom: 5px;">Subir e Ingestar CSV</button>
+            <p id="csvStatusMessage" style="font-size: 0.75rem; color: var(--hud-cyan); text-align: center;"></p>
+
+            <!-- 2. Carga Rápida Automática (JSON) -->
+            <p style="margin-top: 1rem;"><strong>Prueba Rápida (JSON)</strong></p>
+            <input type="file" id="jsonFileInput" accept=".json" style="color: var(--text-main); font-size: 0.8rem; margin-bottom: 0.5rem; width: 100%;"/>
+            <button id="uploadJsonBtn" class="kep-link" style="width: 100%; border-color: var(--hud-cyan);">Procesar JSON con IA</button>
+
+            <!-- 3. Botón para abrir Inferencia Manual -->
+            <p style="margin-top: 1rem;"><strong>Inferencia Manual (Escribir datos)</strong></p>
+            <button id="toggleManualFormBtn" class="kep-link" style="width: 100%;">Abrir / Cerrar Consola Manual</button>
+        </div>
+
+        <!-- 4. Formulario Manual (Inicialmente oculto con la clase 'hide') -->
+        <div id="manualTestForm" class="hide" style="margin-top: 1rem; max-height: 250px; overflow-y: auto; padding-right: 10px;">
+
+            <!-- El archivo app.js inyectará aquí los 25 inputs matemáticos -->
+            <div id="manualInputsGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;"></div>
+
+            <button id="runManualInferenceBtn" class="kep-link" style="margin-top: 10px; width: 100%; border-color: var(--hud-cyan); background: rgba(0, 240, 255, 0.2);">
+                EJECUTAR RED NEURONAL
+            </button>
+        </div>
+        <!-- FIN MÓDULOS IA -->
+
+    </section>
+
+    <!-- Sección Inferior Izquierda: Panel de Telemetría Dinámica -->
+    <section class="telemetry-panel panel-fluido" id="telemetryPanel">
+        <h2>MÉTRICAS DEL ASTRO</h2>
+
+        <div id="loadingMessage" class="status-msg hide">Solicitando datos a Spring Boot...</div>
+        <div id="errorMessage" class="status-msg error hide">Error de conexión</div>
+
+        <div class="data-display hide" id="dataDisplay">
+            <div class="data-row"><strong>ID NASA:</strong><span id="valKepid" class="value">--</span></div>
+            <div class="data-row"><strong>Temperatura Estelar:</strong><span class="value"><span id="valTemp">--</span> K</span></div>
+            <div class="data-row"><strong>Gravedad Superficial:</strong><span class="value"><span id="valGravedad">--</span> log(g)</span></div>
+            <div class="data-row"><strong>Radio Planetario:</strong><span class="value"><span id="valRadio">--</span> R_Terra</span></div>
+            <div class="data-row"><strong>Duración Orbital:</strong><span class="value"><span id="valDia">--</span> días</span></div>
+            <div class="data-row"><strong>Temp. Equilibrio:</strong><span class="value"><span id="valTempEq">--</span> K</span></div>
+            <div class="ai-flag" id="aiFlag">Análisis IA Procesado (ONNX)</div>
+        </div>
+    </section>
+
+    <!-- Footer técnico -->
+    <footer class="tecnica-footer">
+        Nova Engine v1.0 | WebGL 2.0 | Java 21 LTS
+    </footer>
+</div>
+
+<!-- Configuración de Módulos ES Nativo (Sin compilador) -->
+<script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.150.0/build/three.module.js",
+        "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.150.0/examples/jsm/controls/OrbitControls.js"
+      }
+    }
+</script>
+
+<!-- Punto de Entrada de JavaScript -->
+<script type="module" src="app.js"></script>
+</body>
+</html>
