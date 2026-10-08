@@ -25,10 +25,15 @@ import mx.edu.itson.proyectonova.models.enums.ClasificacionEnum;
 @Entity
 @Table(name = "kepler_data")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class KeplerDataEntity {
+
+    /**
+     * Constructor por defecto requerido por JPA.
+     */
+    public KeplerDataEntity() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

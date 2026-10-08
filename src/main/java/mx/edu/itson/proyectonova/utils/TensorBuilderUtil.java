@@ -4,8 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 import mx.edu.itson.proyectonova.models.entities.KeplerDataEntity;
 import mx.edu.itson.proyectonova.exceptions.TensorBuildException;
 
+/**
+ * Utilidad encargada de sanear, imputar y escalar los datos físicos del exoplaneta
+ * para generar el tensor requerido por el motor de inferencia ONNX.
+ */
 @Slf4j
 public class TensorBuilderUtil {
+
+    /**
+     * Constructor privado para ocultar el implícito público y prevenir instanciación.
+     */
+    private TensorBuilderUtil() {
+    }
 
     // --- PASO 1: CONSTANTES DE IMPUTACIÓN (Medianas) ---
     private static final float MEDIANA_PERIOD = 9.752831f;
@@ -41,6 +51,11 @@ public class TensorBuilderUtil {
             6.026852f, 0.887177f, 4.785962f, 3.589921f, 1.391420f
     };
 
+    /**
+     * Construye un tensor de 1x25 con los datos imputados y escalados.
+     * @param entidad La entidad KeplerDataEntity que contiene los datos en crudo.
+     * @return Un arreglo bidimensional de flotantes (1x25) listo para inferencia.
+     */
     public static float[][] construirTensor(KeplerDataEntity entidad) {
         try {
             float[] caracteristicas = new float[25];

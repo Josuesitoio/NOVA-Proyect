@@ -3,7 +3,16 @@ package mx.edu.itson.proyectonova.utils;
 /**
  * Utilidad matemática estática para procesar los vectores de salida de la red neuronal.
  */
+/**
+ * Utilidad matemática para calcular la función Softmax sobre arreglos de probabilidades.
+ */
 public class SoftmaxMathUtil {
+
+    /**
+     * Constructor privado para ocultar el implícito público y prevenir instanciación.
+     */
+    private SoftmaxMathUtil() {
+    }
 
     /**
      * Aplica la función Softmax a un arreglo de logits crudos.

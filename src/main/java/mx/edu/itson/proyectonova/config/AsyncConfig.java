@@ -14,6 +14,16 @@ import java.util.concurrent.Executor;
 @EnableAsync
 public class AsyncConfig {
 
+    /**
+     * Constructor por defecto de la configuración asíncrona.
+     */
+    public AsyncConfig() {
+    }
+
+    /**
+     * Configura y provee el ejecutor de hilos para las tareas asíncronas de la aplicación.
+     * @return Una instancia de Executor configurada para el procesamiento masivo.
+     */
     @Bean(name = "csvTaskExecutor")
     public Executor asyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

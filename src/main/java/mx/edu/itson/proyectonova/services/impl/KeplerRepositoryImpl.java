@@ -14,6 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class KeplerRepositoryImpl {
 
+    /**
+     * Constructor por defecto para la inyección de dependencias de Spring.
+     */
+    public KeplerRepositoryImpl() {
+    }
+
     @PersistenceContext
     private EntityManager entityManager;
 

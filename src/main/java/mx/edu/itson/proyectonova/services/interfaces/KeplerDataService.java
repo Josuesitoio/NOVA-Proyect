@@ -2,6 +2,10 @@ package mx.edu.itson.proyectonova.services.interfaces;
 
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Contrato para el servicio encargado del procesamiento e ingesta masiva
+ * de datos provenientes de archivos CSV de la NASA.
+ */
 public interface KeplerDataService {
     /**
      * Procesa un archivo CSV de la NASA y vuelca los datos en la base de datos SQLite.

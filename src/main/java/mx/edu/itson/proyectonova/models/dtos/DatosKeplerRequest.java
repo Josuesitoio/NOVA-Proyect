@@ -12,9 +12,14 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class DatosKeplerRequest {
+
+    /**
+     * Constructor por defecto para la des-serialización del JSON de entrada.
+     */
+    public DatosKeplerRequest() {
+    }
 
     // 1-2: Período Orbital
     @JsonProperty("koi_period")

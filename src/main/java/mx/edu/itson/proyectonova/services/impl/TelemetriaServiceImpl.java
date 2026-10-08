@@ -14,11 +14,20 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class TelemetriaServiceImpl implements TelemetriaService {
 
-    private final KeplerRepository keplerRepository; //[cite: 4]
+    private final KeplerRepository keplerRepository;
     private final KeplerMapper keplerMapper;
+
+    /**
+     * Constructor principal para inyectar dependencias.
+     * @param keplerRepository Repositorio base de datos.
+     * @param keplerMapper Mapper para conversión de entidades a DTOs.
+     */
+    public TelemetriaServiceImpl(KeplerRepository keplerRepository, KeplerMapper keplerMapper) {
+        this.keplerRepository = keplerRepository;
+        this.keplerMapper = keplerMapper;
+    }
 
     @Override
     public DatosFisicosResponse obtenerPropiedadesVisuales(String kepid) {

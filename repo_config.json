@@ -1,0 +1,5 @@
+{
+  "name": "NOVA-Practica",
+  "description": "Proyecto NOVA (Neural Orbital Verification Algorithm) es una plataforma de software avanzado que integra Inteligencia Artificial de aprendizaje profundo (Deep Learning) con una arquitectura empresarial robusta en Java. Su propósito principal es clasificar objetos astronómicos detectados por el Telescopio Espacial Kepler de la NASA a través del método de tránsito, prediciendo si un cuerpo celeste es un Exoplaneta Confirmado, un Candidato o un Falso Positivo.",
+  "private": false
+}

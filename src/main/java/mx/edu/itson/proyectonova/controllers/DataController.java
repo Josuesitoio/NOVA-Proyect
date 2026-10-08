@@ -17,11 +17,18 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/data")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "*") // Permite peticiones desde el frontend Vanila sin bloqueos CORS
 public class DataController {
 
     private final KeplerDataService keplerDataService;
+
+    /**
+     * Constructor principal para inyección de dependencias.
+     * @param keplerDataService Servicio encargado de procesar la telemetría.
+     */
+    public DataController(KeplerDataService keplerDataService) {
+        this.keplerDataService = keplerDataService;
+    }
 
     /**
      * Endpoint para recibir y procesar el archivo CSV oficial.

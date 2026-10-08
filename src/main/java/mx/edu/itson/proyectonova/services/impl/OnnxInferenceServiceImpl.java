@@ -12,14 +12,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+/**
+ * Servicio encargado de la inferencia utilizando el motor ONNX.
+ */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class OnnxInferenceServiceImpl {
 
-    // Se inyectan automáticamente gracias a @RequiredArgsConstructor y la clase OnnixConfig
     private final OrtEnvironment environment;
     private final OrtSession session;
+
+    /**
+     * Constructor principal para la inyección de dependencias.
+     * @param environment Entorno ONNX en la memoria nativa.
+     * @param session Sesión activa del modelo neuronal.
+     */
+    public OnnxInferenceServiceImpl(OrtEnvironment environment, OrtSession session) {
+        this.environment = environment;
+        this.session = session;
+    }
 
     /**
      * Ejecuta la predicción matemática sobre un registro astrofísico.

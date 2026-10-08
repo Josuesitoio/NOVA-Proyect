@@ -10,9 +10,14 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class PrediccionResponse {
+
+    /**
+     * Constructor por defecto requerido para la serialización.
+     */
+    public PrediccionResponse() {
+    }
 
     private String kepid;
     private String estadoOriginalNasa;

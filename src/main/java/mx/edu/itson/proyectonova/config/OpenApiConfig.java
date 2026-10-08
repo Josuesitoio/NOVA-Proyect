@@ -13,9 +13,22 @@ import java.util.List;
 /**
  * Configuración de la documentación interactiva de la API (Swagger UI / OpenAPI 3.0).
  */
+/**
+ * Configuración de OpenAPI (Swagger) para documentar los endpoints REST.
+ */
 @Configuration
 public class OpenApiConfig {
 
+    /**
+     * Constructor por defecto.
+     */
+    public OpenApiConfig() {
+    }
+
+    /**
+     * Configura el bean principal de OpenAPI para generar la documentación interactiva.
+     * @return Una instancia de OpenAPI con la información del proyecto.
+     */
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()

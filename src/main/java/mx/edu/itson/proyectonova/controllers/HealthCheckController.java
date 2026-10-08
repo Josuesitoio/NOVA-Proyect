@@ -16,12 +16,23 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/health")
-@RequiredArgsConstructor
 public class HealthCheckController {
 
     // Inyectamos la sesión ONNX para asegurarnos de que la memoria nativa sigue accesible
     private final OrtSession ortSession;
 
+    /**
+     * Constructor principal para inyectar dependencias.
+     * @param ortSession Sesión ONNX activa para el diagnóstico.
+     */
+    public HealthCheckController(OrtSession ortSession) {
+        this.ortSession = ortSession;
+    }
+
+    /**
+     * Verifica el estado de salud de la aplicación y del motor de inteligencia artificial.
+     * @return Un mapa con el estado del sistema y del motor ONNX, envuelto en una respuesta HTTP 200.
+     */
     @GetMapping
     public ResponseEntity<Map<String, String>> checkStatus() {
         log.info("Ejecutando diagnóstico de salud del sistema...");

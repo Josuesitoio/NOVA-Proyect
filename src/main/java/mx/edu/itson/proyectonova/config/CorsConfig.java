@@ -10,6 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+    /**
+     * Constructor por defecto de la configuración CORS.
+     */
+    public CorsConfig() {
+    }
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Aplica a todos los endpoints (incluyendo /api/v1/exploracion)

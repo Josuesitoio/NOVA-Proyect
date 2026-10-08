@@ -15,16 +15,28 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Servicio encargado de procesar de manera masiva los archivos CSV de la NASA,
+ * extrayendo los datos y persistiendo lotes de telemetría en la base de datos local.
+ */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class CsvProcesadorServiceImpl {
 
-    private final KeplerRepository keplerRepository; //[cite: 4]
+    private final KeplerRepository keplerRepository;
+
+    /**
+     * Constructor principal para la inyección de dependencias.
+     * @param keplerRepository Repositorio JPA para entidades de Kepler.
+     */
+    public CsvProcesadorServiceImpl(KeplerRepository keplerRepository) {
+        this.keplerRepository = keplerRepository;
+    }
 
     /**
      * Procesa el CSV de la NASA de forma asíncrona para no bloquear el servidor.
      * Lee línea por línea, parsea los flotantes y guarda en lotes (batch) en SQLite.
+     * @param csvInputStream El flujo de entrada de datos binarios del archivo CSV.
      */
     @Async
     @Transactional

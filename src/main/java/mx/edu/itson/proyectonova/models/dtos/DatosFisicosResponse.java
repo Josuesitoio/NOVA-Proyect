@@ -5,11 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO que contiene las propiedades visuales y la predicción para el cliente.
+ */
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class DatosFisicosResponse {
+
+    /**
+     * Constructor por defecto.
+     */
+    public DatosFisicosResponse() {
+    }
 
     // Propiedades físicas para el motor 3D
     private String kepid;

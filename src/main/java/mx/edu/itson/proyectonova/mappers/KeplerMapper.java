@@ -12,6 +12,12 @@ import org.springframework.stereotype.Component;
 public class KeplerMapper {
 
     /**
+     * Constructor por defecto de la clase utilitaria para mapeo.
+     */
+    public KeplerMapper() {
+    }
+
+    /**
      * Transforma la telemetria completa de SQLite a los parametros visuales
      * exactos que el motor grafico de Three.js necesita, con conversion segura de Float a Double.
      *

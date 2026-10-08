@@ -16,11 +16,18 @@ import mx.edu.itson.proyectonova.models.entities.KeplerDataEntity;
 @Slf4j
 @RestController
 @RequestMapping("/api/exploracion")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "*") // Crucial para evitar bloqueos CORS si ejecutas el HTML directo en el navegador
 public class ExploracionController {
 
     private final ExploracionService exploracionService;
+
+    /**
+     * Constructor principal para inyección de dependencias.
+     * @param exploracionService Servicio que maneja la lógica de exploración.
+     */
+    public ExploracionController(ExploracionService exploracionService) {
+        this.exploracionService = exploracionService;
+    }
 
     /**
      * Recupera la telemetria fisica y ejecuta la prediccion de IA para un astro.
@@ -39,6 +46,11 @@ public class ExploracionController {
         return ResponseEntity.ok(respuesta);
     }
 
+    /**
+     * Permite ejecutar la inferencia de manera manual inyectando variables directamente.
+     * @param request DTO con las características astrofísicas.
+     * @return DTO con la predicción del modelo y propiedades.
+     */
     @PostMapping("/manual")
     public ResponseEntity<DatosFisicosResponse> probarModeloManual(@RequestBody DatosKeplerRequest request) {
         log.info("Iniciando prueba de inferencia manual en ONNX");

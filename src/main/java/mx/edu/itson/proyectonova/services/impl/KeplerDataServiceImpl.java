@@ -18,13 +18,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Implementación del servicio de procesamiento de datos de Kepler.
+ * Maneja la lectura de archivos CSV y la persistencia de datos en la base de datos.
+ */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class KeplerDataServiceImpl implements KeplerDataService {
 
     private final KeplerRepository repository;
     private static final int BATCH_SIZE = 1000;
+
+    /**
+     * Constructor principal para inyección de dependencias.
+     * @param repository Repositorio de telemetría Kepler.
+     */
+    public KeplerDataServiceImpl(KeplerRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     @Transactional
@@ -66,9 +77,7 @@ public class KeplerDataServiceImpl implements KeplerDataService {
                 }
                 entidad.setKepid(kepid);
 
-                // ==========================================
-                // NUEVO: Extracción y mapeo del Enum de Clasificación
-                // ==========================================
+                // Extracción y mapeo del Enum de Clasificación
                 String disposicion = extraerString(valores, mapaColumnas, "koi_disposition");
                 if (disposicion != null && !disposicion.isEmpty()) {
                     // Convierte el string del CSV al formato del Enum (Ej. "FALSE POSITIVE" a "FALSE_POSITIVE")

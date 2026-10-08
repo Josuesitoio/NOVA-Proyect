@@ -29,6 +29,13 @@ import org.springframework.core.io.Resource;
 @Slf4j
 @Configuration
 public class OnnixConfig {
+
+    /**
+     * Constructor por defecto de la configuración de ONNX.
+     */
+    public OnnixConfig() {
+    }
+
     //extrae la ruta del archivo .ONNX definifa en el aplication.properties
     @Value("${nova.ai.model-path}")
     private Resource modelResource;
@@ -57,29 +64,11 @@ public class OnnixConfig {
     */
 
     @Bean(destroyMethod = "close")
-    public OrtSession ortSession (OrtEnvironment env){
-        try{
-            log.info("Buscando modelo neuronal en la ruta: {}", modelResource.getFilename());
-
-            //Leemos el modelo directamente en un arreglo de bytes
-            //Esta tecnica garantiza que funcione tanto en desarrollo local como al compilar en produccion
-            byte[] modelBytes = modelResource.getInputStream().readAllBytes();
-
-            //Aplicamos todas las optimizaciones matematicas disponibles de la libreria ONNX
-            OrtSession.SessionOptions options = new OrtSession.SessionOptions();
-            options.setOptimizationLevel(OrtSession.SessionOptions.OptLevel.NO_OPT);
-
-            //compilamos la sesion utilizando los bytes del modelo y las opciones de optimizacion
-            OrtSession session = env.createSession(modelBytes, options);
-            log.info("Modelo de IA Cardado en Ram Exitosamente y listo para procesar telemetrias");
-
-            return session;
-
-        }
-        catch (Exception e){
-            log.error("Error Critico: No Se Pudo cargar el modelo ONNX", e);
-            //lanzamos una excepcion no comprobada (RuntimeException) para detener el arranque del sistema
-            throw new OnnxModelLoadException("Error al cargar el modelo ONNX", e);
-        }
+   public OrtSession ortSession (OrtEnvironment env){
+        //ESCRIBE TU CODIGO AQUI
     }
+
+
+
+
 }
